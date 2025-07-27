@@ -1,25 +1,26 @@
 import { requireAuth } from "@/lib/auth"
 import { getSimpleConversationMessages } from "@/lib/services/conversations-simple"
 import { SimpleConversationPageClient } from "@/components/conversations/simple-conversation-page-client"
-import { MessagesSquare, AlertTriangle } from "lucide-react"
+import { AlertTriangle } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
 interface ConversationPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default async function ConversationPage({ params }: ConversationPageProps) {
   const session = await requireAuth()
+  const { id } = await params
   
   try {
-    const messages = await getSimpleConversationMessages(params.id, session.user.id)
+    const messages = await getSimpleConversationMessages(id, session.user.id)
 
     return (
       <SimpleConversationPageClient
-        conversationId={params.id}
+        conversationId={id}
         initialMessages={messages}
         currentUserId={session.user.id}
       />

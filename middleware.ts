@@ -7,8 +7,10 @@ export async function middleware(request: NextRequest) {
     request,
   })
 
-  // Log incoming cookies
-  console.log("Middleware: Incoming cookies:", request.cookies.getAll().map(c => c.name));
+  // Log incoming cookies (development only)
+  if (process.env.NODE_ENV === 'development') {
+    console.log("Middleware: Incoming cookies:", request.cookies.getAll().map(c => c.name));
+  }
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -57,8 +59,10 @@ export async function middleware(request: NextRequest) {
     });
   }
 
-  // Log cookies after session refresh attempt
-  console.log("Middleware: Supabase response cookies after refresh:", supabaseResponse.cookies.getAll().map(c => c.name));
+  // Log cookies after session refresh attempt (development only)
+  if (process.env.NODE_ENV === 'development') {
+    console.log("Middleware: Supabase response cookies after refresh:", supabaseResponse.cookies.getAll().map(c => c.name));
+  }
 
   if (sessionError || userError) {
     console.error("Middleware session or user error:", sessionError || userError);
