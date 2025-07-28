@@ -19,7 +19,7 @@ $launchScript = @"
 @echo off
 title Loft Algérie
 echo Lancement de Loft Algérie...
-start "" "https://loft-algerie-fcm5v3f76-habib-fr2001-9481s-projects.vercel.app"
+start "" "https://loft-algerie.vercel.app"
 "@
 
 $launchScript | Out-File -FilePath "$appDir\launch.bat" -Encoding ASCII

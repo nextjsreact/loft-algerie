@@ -1,2 +1,2 @@
 @echo off
-start "" "https://loft-algerie-fcm5v3f76-habib-fr2001-9481s-projects.vercel.app"
+start "" "https://loft-algerie.vercel.app"
