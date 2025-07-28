@@ -10,12 +10,36 @@ import { ToastProvider } from '@/components/providers/toast-provider'
 import { EnhancedRealtimeProvider } from '@/components/providers/enhanced-realtime-provider'
 import { NotificationProvider } from '@/components/providers/notification-context'
 import { CriticalAlertsNotification } from '@/components/executive/critical-alerts-notification'
+import { InstallPrompt } from '@/components/pwa/install-prompt'
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Loft Management System",
-  description: "Professional SaaS platform for managing loft properties",
+  title: "Loft Algérie - Gestion des Lofts",
+  description: "Application complète de gestion des lofts, propriétaires, transactions et conversations en Algérie",
+  manifest: "/manifest.json",
+  themeColor: "#4F46E5",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Loft Algérie",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 }
 
 import { ThemeProvider } from "@/components/theme-provider"
@@ -30,7 +54,16 @@ export default async function RootLayout({
   const { count: unreadCount } = session ? await getUnreadNotificationsCount(session.user.id) : { count: null };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#4F46E5" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Loft Algérie" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="mobile-web-app-capable" content="yes" />
+      </head>
       <body className={inter.className}>
         <I18nProvider>
           <ThemeProvider
@@ -58,6 +91,8 @@ export default async function RootLayout({
                     userId={session.user.id} 
                     userRole={session.user.role} 
                   />
+                  {/* Prompt d'installation PWA */}
+                  <InstallPrompt />
                 </div>
               </NotificationProvider>
             </EnhancedRealtimeProvider>

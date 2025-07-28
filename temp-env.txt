@@ -1,0 +1,1 @@
+postgresql://postgres.mhngbluefyucoesgcjoy:Canada!2025Mosta@db.mhngbluefyucoesgcjoy.supabase.co:5432/postgres
