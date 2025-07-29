@@ -37,6 +37,7 @@ export function Sidebar({ user, unreadCount, className }: SidebarProps) {
     { name: t('nav.conversations'), href: "/conversations", icon: MessageSquare, roles: ["admin", "manager", "member", "executive"] },
     { name: t('nav.notifications'), href: "/notifications", icon: Bell, roles: ["admin", "manager", "member"] },
     { name: t('nav.lofts'), href: "/lofts", icon: Building2, roles: ["admin", "manager"] },
+    { name: t('nav.reservations'), href: "/reservations", icon: Calendar, roles: ["admin", "manager"] },
     { name: t('nav.tasks'), href: "/tasks", icon: ClipboardList, roles: ["admin", "manager", "member"] },
     { name: t('nav.teams'), href: "/teams", icon: Users, roles: ["admin", "manager"] },
     { name: t('nav.owners'), href: "/owners", icon: UserCheck, roles: ["admin"] },

@@ -124,12 +124,20 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
     setIsSubmitting(true)
     
     try {
-      await onSubmit({
+      // Convert empty date strings to null to prevent database errors
+      const processedData = {
         ...formData,
         price_per_month: Number(formData.price_per_month),
         company_percentage: Number(formData.company_percentage),
         owner_percentage: Number(formData.owner_percentage),
-      })
+        // Convert empty date strings to null
+        prochaine_echeance_eau: formData.prochaine_echeance_eau || null,
+        prochaine_echeance_energie: formData.prochaine_echeance_energie || null,
+        prochaine_echeance_telephone: formData.prochaine_echeance_telephone || null,
+        prochaine_echeance_internet: formData.prochaine_echeance_internet || null,
+      }
+      
+      await onSubmit(processedData)
     } catch (error) {
       console.error('Form submission error:', error)
     } finally {
