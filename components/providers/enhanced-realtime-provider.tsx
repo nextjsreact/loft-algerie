@@ -41,21 +41,62 @@ export function EnhancedRealtimeProvider({ children, userId }: EnhancedRealtimeP
 
   const refreshCounts = useCallback(async () => {
     try {
-      // Refresh message count
-      const messageResponse = await fetch('/api/conversations/unread-count')
-      if (messageResponse.ok) {
-        const { count } = await messageResponse.json()
-        setUnreadMessagesCount(count || 0)
+      // Refresh message count avec gestion d'erreur robuste
+      try {
+        const messageResponse = await fetch('/api/conversations/unread-count', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        
+        if (messageResponse.ok) {
+          const data = await messageResponse.json()
+          setUnreadMessagesCount(data.count || 0)
+        } else {
+          // API existe mais erreur (probablement tables manquantes)
+          console.log('Conversations API error:', messageResponse.status)
+          setUnreadMessagesCount(0)
+        }
+      } catch (messageError) {
+        // Erreur réseau ou API non disponible
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Conversations feature not available:', messageError.message)
+        }
+        setUnreadMessagesCount(0)
       }
 
-      // Refresh notification count
-      const notificationResponse = await fetch('/api/notifications/unread-count')
-      if (notificationResponse.ok) {
-        const { count } = await notificationResponse.json()
-        setUnreadNotificationsCount(count || 0)
+      // Refresh notification count avec gestion d'erreur
+      try {
+        const notificationResponse = await fetch('/api/notifications/unread-count', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        
+        if (notificationResponse.ok) {
+          const data = await notificationResponse.json()
+          setUnreadNotificationsCount(data.count || 0)
+        } else {
+          console.log('Notifications API error:', notificationResponse.status)
+          setUnreadNotificationsCount(0)
+        }
+      } catch (notificationError) {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Notifications API error:', notificationError.message)
+        }
+        setUnreadNotificationsCount(0)
       }
+      
     } catch (error) {
-      console.error('Failed to refresh counts:', error)
+      // Erreur générale - ne pas faire planter l'app
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Failed to refresh counts:', error)
+      }
+      // Réinitialiser les compteurs en cas d'erreur
+      setUnreadMessagesCount(0)
+      setUnreadNotificationsCount(0)
     }
   }, [])
 

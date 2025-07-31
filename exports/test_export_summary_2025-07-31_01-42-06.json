@@ -1,0 +1,122 @@
+{
+  "export_file": "test_database_export_2025-07-31_01-42-06.json",
+  "environment": "test",
+  "timestamp": "2025-07-31T01:42:08.468Z",
+  "summary": {
+    "total_tables": 18,
+    "successful_exports": 3,
+    "empty_tables": 15,
+    "failed_exports": 0,
+    "total_records": 24
+  },
+  "tables_detail": [
+    {
+      "table": "currencies",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "categories",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "zone_areas",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "internet_connection_types",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "payment_methods",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "loft_owners",
+      "status": "success",
+      "records": 3,
+      "error": null
+    },
+    {
+      "table": "lofts",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "profiles",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "teams",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "team_members",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "tasks",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "transactions",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "transaction_category_references",
+      "status": "success",
+      "records": 19,
+      "error": null
+    },
+    {
+      "table": "conversations",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "conversation_participants",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "messages",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "notifications",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "settings",
+      "status": "success",
+      "records": 2,
+      "error": null
+    }
+  ]
+}

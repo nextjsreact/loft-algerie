@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-07-31T01:26:18.505Z",
+  "purpose": "Emergency recovery data",
+  "lofts": [
+    {
+      "name": "Loft Centre Alger",
+      "address": "123 Rue Didouche Mourad, Alger Centre",
+      "price_per_month": 15000,
+      "status": "available",
+      "description": "Loft moderne au centre d'Alger avec vue sur la mer",
+      "company_percentage": 20,
+      "owner_percentage": 80,
+      "frequence_paiement_tv": "mensuel",
+      "prochaine_echeance_tv": "2025-08-30",
+      "owner_id": "68dcda4b-6d78-4271-90ee-08c0fb201513",
+      "zone_area_id": "22613aca-85aa-4db7-b822-c6317b75b2ed",
+      "internet_connection_type_id": "1db36dd2-3320-4773-b15b-6a35146a8d58"
+    },
+    {
+      "name": "Loft Hydra Premium",
+      "address": "456 Avenue des Martyrs, Hydra",
+      "price_per_month": 25000,
+      "status": "occupied",
+      "description": "Loft de luxe dans le quartier résidentiel d'Hydra",
+      "company_percentage": 15,
+      "owner_percentage": 85,
+      "frequence_paiement_tv": "mensuel",
+      "prochaine_echeance_tv": "2025-08-15",
+      "owner_id": "fa11a8c8-e340-41f8-add7-7881cd5fa944",
+      "zone_area_id": "c1252ae0-d980-4742-abec-27160088f6a8",
+      "internet_connection_type_id": "1db36dd2-3320-4773-b15b-6a35146a8d58"
+    },
+    {
+      "name": "Loft Kouba Moderne",
+      "address": "789 Boulevard Colonel Amirouche, Kouba",
+      "price_per_month": 18000,
+      "status": "maintenance",
+      "description": "Loft spacieux avec terrasse dans le quartier de Kouba",
+      "company_percentage": 25,
+      "owner_percentage": 75,
+      "frequence_paiement_tv": "trimestriel",
+      "prochaine_echeance_tv": "2025-09-14",
+      "owner_id": "755b4b7a-de97-4134-a3b4-34e67c6e998d",
+      "zone_area_id": "26d5d45c-de7a-46b7-84ae-5dd346e5fdd2",
+      "internet_connection_type_id": "1db36dd2-3320-4773-b15b-6a35146a8d58"
+    }
+  ],
+  "owners": [
+    {
+      "id": "68dcda4b-6d78-4271-90ee-08c0fb201513",
+      "name": "Loft Algerie"
+    },
+    {
+      "id": "fa11a8c8-e340-41f8-add7-7881cd5fa944",
+      "name": "Bachir"
+    },
+    {
+      "id": "755b4b7a-de97-4134-a3b4-34e67c6e998d",
+      "name": "Saliha"
+    }
+  ],
+  "zones": [
+    {
+      "id": "22613aca-85aa-4db7-b822-c6317b75b2ed",
+      "name": "Bejaia"
+    },
+    {
+      "id": "c1252ae0-d980-4742-abec-27160088f6a8",
+      "name": "Jijel"
+    },
+    {
+      "id": "26d5d45c-de7a-46b7-84ae-5dd346e5fdd2",
+      "name": "Alger Centre"
+    }
+  ]
+}

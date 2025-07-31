@@ -1,0 +1,61 @@
+{
+  "environment": "test",
+  "timestamp": "2025-07-31T01:38:15.169Z",
+  "tables": {
+    "lofts": {
+      "data": [],
+      "records": 0
+    },
+    "loft_owners": {
+      "data": [
+        {
+          "id": "68dcda4b-6d78-4271-90ee-08c0fb201513",
+          "name": "Loft Algerie",
+          "email": "contact@loftalgerie.com",
+          "phone": "021234567",
+          "address": "Algiers, Algeria",
+          "ownership_type": "company",
+          "created_at": "2025-07-07T19:00:40.35449+00:00",
+          "updated_at": "2025-07-07T19:00:40.35449+00:00"
+        },
+        {
+          "id": "fa11a8c8-e340-41f8-add7-7881cd5fa944",
+          "name": "Bachir",
+          "email": "hazhd@gmail.com",
+          "phone": "65420165",
+          "address": "Londres",
+          "ownership_type": "third_party",
+          "created_at": "2025-07-27T22:49:08.148059+00:00",
+          "updated_at": "2025-07-27T22:49:08.148059+00:00"
+        },
+        {
+          "id": "755b4b7a-de97-4134-a3b4-34e67c6e998d",
+          "name": "Saliha",
+          "email": null,
+          "phone": null,
+          "address": null,
+          "ownership_type": "third_party",
+          "created_at": "2025-07-29T10:10:19.226539+00:00",
+          "updated_at": "2025-07-29T10:10:19.226539+00:00"
+        }
+      ],
+      "records": 3
+    },
+    "profiles": {
+      "data": [],
+      "records": 0
+    },
+    "transactions": {
+      "data": [],
+      "records": 0
+    },
+    "currencies": {
+      "data": [],
+      "records": 0
+    },
+    "categories": {
+      "data": [],
+      "records": 0
+    }
+  }
+}

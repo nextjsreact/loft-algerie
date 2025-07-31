@@ -1,0 +1,122 @@
+{
+  "export_file": "prod_database_export_2025-07-31_01-39-08.json",
+  "environment": "prod",
+  "timestamp": "2025-07-31T01:39:10.457Z",
+  "summary": {
+    "total_tables": 18,
+    "successful_exports": 16,
+    "empty_tables": 2,
+    "failed_exports": 0,
+    "total_records": 285
+  },
+  "tables_detail": [
+    {
+      "table": "currencies",
+      "status": "success",
+      "records": 3,
+      "error": null
+    },
+    {
+      "table": "categories",
+      "status": "success",
+      "records": 13,
+      "error": null
+    },
+    {
+      "table": "zone_areas",
+      "status": "success",
+      "records": 6,
+      "error": null
+    },
+    {
+      "table": "internet_connection_types",
+      "status": "success",
+      "records": 13,
+      "error": null
+    },
+    {
+      "table": "payment_methods",
+      "status": "success",
+      "records": 3,
+      "error": null
+    },
+    {
+      "table": "loft_owners",
+      "status": "success",
+      "records": 3,
+      "error": null
+    },
+    {
+      "table": "lofts",
+      "status": "success",
+      "records": 3,
+      "error": null
+    },
+    {
+      "table": "profiles",
+      "status": "success",
+      "records": 9,
+      "error": null
+    },
+    {
+      "table": "teams",
+      "status": "success",
+      "records": 1,
+      "error": null
+    },
+    {
+      "table": "team_members",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "tasks",
+      "status": "success",
+      "records": 53,
+      "error": null
+    },
+    {
+      "table": "transactions",
+      "status": "empty",
+      "records": 0,
+      "error": null
+    },
+    {
+      "table": "transaction_category_references",
+      "status": "success",
+      "records": 19,
+      "error": null
+    },
+    {
+      "table": "conversations",
+      "status": "success",
+      "records": 7,
+      "error": null
+    },
+    {
+      "table": "conversation_participants",
+      "status": "success",
+      "records": 15,
+      "error": null
+    },
+    {
+      "table": "messages",
+      "status": "success",
+      "records": 15,
+      "error": null
+    },
+    {
+      "table": "notifications",
+      "status": "success",
+      "records": 120,
+      "error": null
+    },
+    {
+      "table": "settings",
+      "status": "success",
+      "records": 2,
+      "error": null
+    }
+  ]
+}

@@ -76,6 +76,8 @@ export type Loft = {
   prochaine_echeance_telephone?: string;
   frequence_paiement_internet?: string;
   prochaine_echeance_internet?: string;
+  frequence_paiement_tv?: string;
+  prochaine_echeance_tv?: string;
 };
 
 export type TaskStatus = 'todo' | 'in_progress' | 'completed';

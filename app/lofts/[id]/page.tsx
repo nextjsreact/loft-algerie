@@ -44,8 +44,8 @@ export default async function LoftDetailPage({ params }: { params: { id: string 
               <p className="font-medium capitalize">{loft.status}</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">Monthly Rent</p>
-              <p className="font-medium">${loft.price_per_month}</p>
+              <p className="text-sm text-muted-foreground">Daily Rent</p>
+              <p className="font-medium">{loft.price_per_month} DA</p>
             </div>
             <div>
               <p className="text-sm text-muted-foreground">Owner</p>

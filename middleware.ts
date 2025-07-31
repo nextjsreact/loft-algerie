@@ -9,7 +9,26 @@ export async function middleware(request: NextRequest) {
 
   // Log incoming cookies (development only)
   if (process.env.NODE_ENV === 'development') {
-    console.log("Middleware: Incoming cookies:", request.cookies.getAll().map(c => c.name));
+    const cookies = request.cookies.getAll();
+    console.log("Middleware: Incoming cookies:", cookies.map(c => c.name));
+    
+    // Check for cookie size issues
+    const totalCookieSize = cookies.reduce((total, cookie) => 
+      total + cookie.name.length + (cookie.value?.length || 0), 0
+    );
+    
+    if (totalCookieSize > 4000) { // Warn if approaching limit
+      console.warn(`⚠️ Large cookie size detected: ${totalCookieSize} bytes`);
+      console.warn('🧹 Clear cookies: Open scripts/clear-cookies.html in browser');
+      console.warn('🔄 Or use private browsing: Ctrl+Shift+N');
+    }
+    
+    // Auto-cleanup old Supabase cookies in development
+    if (totalCookieSize > 6000) { // Critical size
+      console.error('🚨 CRITICAL: Cookie size too large! This may cause 431 errors');
+      console.error('🛠️ SOLUTION: Clear all cookies immediately');
+      console.error('📁 Use: scripts/clear-cookies.html');
+    }
   }
 
   const supabase = createServerClient(
@@ -64,8 +83,16 @@ export async function middleware(request: NextRequest) {
     console.log("Middleware: Supabase response cookies after refresh:", supabaseResponse.cookies.getAll().map(c => c.name));
   }
 
+  // Log errors only if they're not "session missing" errors
   if (sessionError || userError) {
-    console.error("Middleware session or user error:", sessionError || userError);
+    const isSessionMissing = sessionError?.message?.includes('Auth session missing') || 
+                            userError?.message?.includes('Auth session missing');
+    
+    if (!isSessionMissing) {
+      console.error("Middleware session or user error:", sessionError || userError);
+    } else if (process.env.NODE_ENV === 'development' && process.env.DEBUG_AUTH) {
+      console.log("Middleware: No session (normal for public requests)");
+    }
   }
 
   const { pathname } = request.nextUrl

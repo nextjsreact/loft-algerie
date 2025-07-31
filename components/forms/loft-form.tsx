@@ -9,6 +9,7 @@ import type { Loft, LoftOwner, InternetConnectionType } from "@/lib/types"
 import type { ZoneArea } from "@/app/actions/zone-areas"
 import { Textarea } from "@/components/ui/textarea"
 import { useTranslation } from "@/lib/i18n/context"
+import { toast } from "sonner"
 
 interface LoftFormProps {
   owners: LoftOwner[]
@@ -48,6 +49,8 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
     prochaine_echeance_telephone: "",
     frequence_paiement_internet: "",
     prochaine_echeance_internet: "",
+    frequence_paiement_tv: "",
+    prochaine_echeance_tv: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -84,6 +87,8 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
         prochaine_echeance_telephone: loft.prochaine_echeance_telephone || "",
         frequence_paiement_internet: loft.frequence_paiement_internet || "",
         prochaine_echeance_internet: loft.prochaine_echeance_internet || "",
+        frequence_paiement_tv: loft.frequence_paiement_tv || "",
+        prochaine_echeance_tv: loft.prochaine_echeance_tv || "",
       }
       
       console.log('🗂️ Setting form data:', formDataToSet)
@@ -135,6 +140,7 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
         prochaine_echeance_energie: formData.prochaine_echeance_energie || null,
         prochaine_echeance_telephone: formData.prochaine_echeance_telephone || null,
         prochaine_echeance_internet: formData.prochaine_echeance_internet || null,
+        prochaine_echeance_tv: formData.prochaine_echeance_tv || null,
       }
       
       await onSubmit(processedData)
@@ -162,7 +168,7 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="price">{t('lofts.pricePerMonth')} ($) *</Label>
+          <Label htmlFor="price">{t('lofts.pricePerDay')} *</Label>
           <Input id="price" type="number" value={formData.price_per_month} onChange={(e) => setFormData({...formData, price_per_month: e.target.value})} required />
         </div>
 
@@ -310,102 +316,288 @@ export function LoftForm({ owners, zoneAreas, internetConnectionTypes, onSubmit,
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-medium">{t('lofts.billingAlerts')}</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="space-y-2">
-            <Label htmlFor="frequence_paiement_eau">{t('lofts.waterBillFrequency')}</Label>
-            <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_eau: value})} value={formData.frequence_paiement_eau}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('lofts.selectFrequency')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
-                <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
-                <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
-                <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
-                <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
-                <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
-                <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="prochaine_echeance_eau">{t('lofts.nextWaterBill')}</Label>
-            <Input id="prochaine_echeance_eau" type="date" value={formData.prochaine_echeance_eau} onChange={(e) => setFormData({...formData, prochaine_echeance_eau: e.target.value})} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="frequence_paiement_energie">{t('lofts.energyBillFrequency')}</Label>
-            <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_energie: value})} value={formData.frequence_paiement_energie}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('lofts.selectFrequency')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
-                <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
-                <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
-                <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
-                <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
-                <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
-                <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="prochaine_echeance_energie">{t('lofts.nextEnergyBill')}</Label>
-            <Input id="prochaine_echeance_energie" type="date" value={formData.prochaine_echeance_energie} onChange={(e) => setFormData({...formData, prochaine_echeance_energie: e.target.value})} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="frequence_paiement_telephone">{t('lofts.phoneBillFrequency')}</Label>
-            <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_telephone: value})} value={formData.frequence_paiement_telephone}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('lofts.selectFrequency')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
-                <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
-                <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
-                <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
-                <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
-                <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
-                <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="prochaine_echeance_telephone">{t('lofts.nextPhoneBill')}</Label>
-            <Input id="prochaine_echeance_telephone" type="date" value={formData.prochaine_echeance_telephone} onChange={(e) => setFormData({...formData, prochaine_echeance_telephone: e.target.value})} />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="frequence_paiement_internet">{t('lofts.internetBillFrequency')}</Label>
-            <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_internet: value})} value={formData.frequence_paiement_internet}>
-              <SelectTrigger>
-                <SelectValue placeholder={t('lofts.selectFrequency')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
-                <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
-                <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
-                <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
-                <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
-                <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
-                <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="prochaine_echeance_internet">{t('lofts.nextInternetBill')}</Label>
-            <Input id="prochaine_echeance_internet" type="date" value={formData.prochaine_echeance_internet} onChange={(e) => setFormData({...formData, prochaine_echeance_internet: e.target.value})} />
+        <div className="border-t pt-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <span className="text-blue-600">📋</span>
+            {t('lofts.billingAlerts')}
+          </h3>
+          <p className="text-sm text-gray-600 mb-6">
+            {t('lofts.billingAlertsDescription')}
+          </p>
+          
+          {/* Organization in sections by bill type */}
+          <div className="space-y-8">
+            
+            {/* Eau */}
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+              <h4 className="font-medium text-blue-900 mb-3 flex items-center gap-2">
+                <span>💧</span> {t('lofts.billingSections.water')}
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="frequence_paiement_eau" className="text-sm font-medium">
+                    {t('lofts.waterBillFrequency')}
+                  </Label>
+                  <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_eau: value})} value={formData.frequence_paiement_eau}>
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder={t('lofts.selectFrequency')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
+                      <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
+                      <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
+                      <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
+                      <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
+                      <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
+                      <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="prochaine_echeance_eau" className="text-sm font-medium">
+                    {t('lofts.nextWaterBill')}
+                  </Label>
+                  <Input 
+                    id="prochaine_echeance_eau" 
+                    type="date" 
+                    value={formData.prochaine_echeance_eau} 
+                    onChange={(e) => setFormData({...formData, prochaine_echeance_eau: e.target.value})}
+                    className="bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Energy */}
+            <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+              <h4 className="font-medium text-yellow-900 mb-3 flex items-center gap-2">
+                <span>⚡</span> {t('lofts.billingSections.energy')}
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="frequence_paiement_energie" className="text-sm font-medium">
+                    {t('lofts.energyBillFrequency')}
+                  </Label>
+                  <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_energie: value})} value={formData.frequence_paiement_energie}>
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder={t('lofts.selectFrequency')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
+                      <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
+                      <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
+                      <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
+                      <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
+                      <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
+                      <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="prochaine_echeance_energie" className="text-sm font-medium">
+                    {t('lofts.nextEnergyBill')}
+                  </Label>
+                  <Input 
+                    id="prochaine_echeance_energie" 
+                    type="date" 
+                    value={formData.prochaine_echeance_energie} 
+                    onChange={(e) => setFormData({...formData, prochaine_echeance_energie: e.target.value})}
+                    className="bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Phone */}
+            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+              <h4 className="font-medium text-green-900 mb-3 flex items-center gap-2">
+                <span>📞</span> {t('lofts.billingSections.phone')}
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="frequence_paiement_telephone" className="text-sm font-medium">
+                    {t('lofts.phoneBillFrequency')}
+                  </Label>
+                  <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_telephone: value})} value={formData.frequence_paiement_telephone}>
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder={t('lofts.selectFrequency')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
+                      <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
+                      <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
+                      <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
+                      <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
+                      <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
+                      <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="prochaine_echeance_telephone" className="text-sm font-medium">
+                    {t('lofts.nextPhoneBill')}
+                  </Label>
+                  <Input 
+                    id="prochaine_echeance_telephone" 
+                    type="date" 
+                    value={formData.prochaine_echeance_telephone} 
+                    onChange={(e) => setFormData({...formData, prochaine_echeance_telephone: e.target.value})}
+                    className="bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Internet */}
+            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+              <h4 className="font-medium text-purple-900 mb-3 flex items-center gap-2">
+                <span>🌐</span> {t('lofts.billingSections.internet')}
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="frequence_paiement_internet" className="text-sm font-medium">
+                    {t('lofts.internetBillFrequency')}
+                  </Label>
+                  <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_internet: value})} value={formData.frequence_paiement_internet}>
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder={t('lofts.selectFrequency')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
+                      <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
+                      <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
+                      <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
+                      <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
+                      <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
+                      <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="prochaine_echeance_internet" className="text-sm font-medium">
+                    {t('lofts.nextInternetBill')}
+                  </Label>
+                  <Input 
+                    id="prochaine_echeance_internet" 
+                    type="date" 
+                    value={formData.prochaine_echeance_internet} 
+                    onChange={(e) => setFormData({...formData, prochaine_echeance_internet: e.target.value})}
+                    className="bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* TV */}
+            <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+              <h4 className="font-medium text-red-900 mb-3 flex items-center gap-2">
+                <span>📺</span> {t('lofts.billingSections.tv')}
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="frequence_paiement_tv" className="text-sm font-medium">
+                    {t('lofts.tvBillFrequency')}
+                  </Label>
+                  <Select onValueChange={(value) => setFormData({...formData, frequence_paiement_tv: value})} value={formData.frequence_paiement_tv}>
+                    <SelectTrigger className="bg-white">
+                      <SelectValue placeholder={t('lofts.selectFrequency')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="hebdomadaire">{t('lofts.frequency.weekly')}</SelectItem>
+                      <SelectItem value="mensuel">{t('lofts.frequency.monthly')}</SelectItem>
+                      <SelectItem value="bimestriel">{t('lofts.frequency.bimonthly')}</SelectItem>
+                      <SelectItem value="trimestriel">{t('lofts.frequency.quarterly')}</SelectItem>
+                      <SelectItem value="quadrimestriel">{t('lofts.frequency.fourMonthly')}</SelectItem>
+                      <SelectItem value="semestriel">{t('lofts.frequency.sixMonthly')}</SelectItem>
+                      <SelectItem value="annuel">{t('lofts.frequency.yearly')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="prochaine_echeance_tv" className="text-sm font-medium">
+                    {t('lofts.nextTvBill')}
+                  </Label>
+                  <Input 
+                    id="prochaine_echeance_tv" 
+                    type="date" 
+                    value={formData.prochaine_echeance_tv} 
+                    onChange={(e) => setFormData({...formData, prochaine_echeance_tv: e.target.value})}
+                    className="bg-white"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="flex justify-end space-x-4">
-        <Button type="button" variant="outline" disabled={isSubmitting}>
-          {t('common.cancel')}
-        </Button>
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? (loft ? t('lofts.updating') : t('lofts.creating')) : (loft ? t('lofts.updateLoft') : t('lofts.createLoft'))}
-        </Button>
+      <div className="flex justify-between items-center pt-6 border-t">
+        {/* Delete button (only in edit mode) */}
+        {loft && (
+          <Button 
+            type="button" 
+            variant="destructive" 
+            disabled={isSubmitting}
+            onClick={async () => {
+              if (confirm(`⚠️ ${t('lofts.deleteConfirmTitle', { name: loft.name })}\n\n${t('lofts.deleteConfirmMessage')}`)) {
+                const confirmation = prompt(t('lofts.deleteConfirmPrompt'))
+                
+                if (confirmation === 'SUPPRIMER' || confirmation === 'DELETE' || confirmation === 'حذف') {
+                  try {
+                    toast.loading(`🗑️ ${t('lofts.deleteInProgress')}`, {
+                      description: t('lofts.deletingLoftData'),
+                      duration: 2000,
+                    })
+                    
+                    // Importer et utiliser l'action de suppression
+                    const { deleteLoft } = await import('@/app/actions/lofts')
+                    await deleteLoft(loft.id)
+                    
+                    toast.success(`🗑️ ${t('lofts.loftDeletedSuccess', { name: loft.name })}`, {
+                      description: t('lofts.loftDataDeleted'),
+                      duration: 4000,
+                    })
+                    
+                    // Redirection will be handled by the deleteLoft action
+                  } catch (error) {
+                    console.error("Delete failed:", error)
+                    toast.error(`❌ ${t('lofts.deleteError')}`, {
+                      description: t('lofts.deleteErrorMessage'),
+                      duration: 6000,
+                    })
+                  }
+                } else if (confirmation !== null) {
+                  toast.warning(`⚠️ ${t('lofts.deleteCancelled')}`, {
+                    description: t('lofts.deleteConfirmationIncorrect'),
+                    duration: 3000,
+                  })
+                }
+              }
+            }}
+            className="bg-red-600 hover:bg-red-700 text-white"
+          >
+            🗑️ {t('lofts.deleteLoft')}
+          </Button>
+        )}
+        
+        {/* Main action buttons */}
+        <div className="flex space-x-4">
+          <Button type="button" variant="outline" disabled={isSubmitting}>
+            {t('common.cancel')}
+          </Button>
+          <Button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700">
+            {isSubmitting ? (
+              <span className="flex items-center gap-2">
+                <span className="animate-spin">⏳</span>
+                {loft ? t('lofts.updating') : t('lofts.creating')}
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                {loft ? '💾 ' + t('lofts.updateLoft') : '➕ ' + t('lofts.createLoft')}
+              </span>
+            )}
+          </Button>
+        </div>
       </div>
     </form>
     </div>

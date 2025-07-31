@@ -1,0 +1,1927 @@
+{
+  "timestamp": "2025-07-31T08:27:52.561Z",
+  "environments": {
+    "prod": {
+      "name": "prod",
+      "url": "https://mhngbluefyucoesgcjoy.supabase.co",
+      "status": "connected"
+    },
+    "test": {
+      "name": "test",
+      "url": "https://sxphlwvjxzxvbdzriziy.supabase.co",
+      "status": "connected"
+    },
+    "dev": {
+      "name": "dev",
+      "url": "https://[project-ref].supabase.co",
+      "status": "error",
+      "error": "Configuration contient des placeholders - veuillez configurer les vraies valeurs"
+    }
+  },
+  "tables": [
+    {
+      "name": "profiles",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "email",
+            "full_name",
+            "role",
+            "password_hash",
+            "email_verified",
+            "reset_token",
+            "reset_token_expires",
+            "last_login",
+            "created_at",
+            "updated_at",
+            "airbnb_access_token",
+            "airbnb_refresh_token",
+            "avatar_url"
+          ],
+          "recordCount": 9,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "email",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "full_name",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "role",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "password_hash",
+              "data_type": "object",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "email_verified",
+              "data_type": "boolean",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "reset_token",
+              "data_type": "object",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "reset_token_expires",
+              "data_type": "object",
+              "ordinal_position": 8
+            },
+            {
+              "column_name": "last_login",
+              "data_type": "object",
+              "ordinal_position": 9
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 10
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 11
+            },
+            {
+              "column_name": "airbnb_access_token",
+              "data_type": "object",
+              "ordinal_position": 12
+            },
+            {
+              "column_name": "airbnb_refresh_token",
+              "data_type": "object",
+              "ordinal_position": 13
+            },
+            {
+              "column_name": "avatar_url",
+              "data_type": "object",
+              "ordinal_position": 14
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, email, full_name, role, password_hash, email_verified, reset_token, reset_token_expires, last_login, created_at, updated_at, airbnb_access_token, airbnb_refresh_token, avatar_url"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, email, full_name, role, password_hash, email_verified, reset_token, reset_token_expires, last_login, created_at, updated_at, airbnb_access_token, airbnb_refresh_token, avatar_url"
+      ]
+    },
+    {
+      "name": "user_sessions",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    },
+    {
+      "name": "zone_areas",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 6,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 4
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "description",
+            "created_at"
+          ],
+          "recordCount": 6,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "description",
+              "data_type": "object",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 4
+            }
+          ]
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: updated_at",
+        "Colonnes supplémentaires dans test: description"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: updated_at"
+      ]
+    },
+    {
+      "name": "internet_connection_types",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "type",
+            "speed",
+            "provider",
+            "status",
+            "cost",
+            "created_at"
+          ],
+          "recordCount": 13,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "type",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "speed",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "provider",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "status",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "cost",
+              "data_type": "number",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 7
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, type, speed, provider, status, cost, created_at"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, type, speed, provider, status, cost, created_at"
+      ]
+    },
+    {
+      "name": "loft_owners",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "email",
+            "phone",
+            "address",
+            "ownership_type",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 3,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "email",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "phone",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "address",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "ownership_type",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 8
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "email",
+            "phone",
+            "address",
+            "ownership_type",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 3,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "email",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "phone",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "address",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "ownership_type",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 8
+            }
+          ]
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    },
+    {
+      "name": "lofts",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "description",
+            "address",
+            "price_per_month",
+            "status",
+            "owner_id",
+            "company_percentage",
+            "owner_percentage",
+            "created_at",
+            "updated_at",
+            "zone_area_id",
+            "airbnb_listing_id",
+            "internet_connection_type_id",
+            "water_customer_code",
+            "water_contract_code",
+            "water_meter_number",
+            "water_correspondent",
+            "electricity_pdl_ref",
+            "electricity_customer_number",
+            "electricity_meter_number",
+            "electricity_correspondent",
+            "gas_pdl_ref",
+            "gas_customer_number",
+            "gas_meter_number",
+            "gas_correspondent",
+            "phone_number",
+            "frequence_paiement_eau",
+            "prochaine_echeance_eau",
+            "frequence_paiement_energie",
+            "prochaine_echeance_energie",
+            "frequence_paiement_telephone",
+            "prochaine_echeance_telephone",
+            "frequence_paiement_internet",
+            "prochaine_echeance_internet",
+            "price_per_night",
+            "frequence_paiement_tv",
+            "prochaine_echeance_tv"
+          ],
+          "recordCount": 3,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "address",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "price_per_month",
+              "data_type": "number",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "status",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "owner_id",
+              "data_type": "string",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "company_percentage",
+              "data_type": "number",
+              "ordinal_position": 8
+            },
+            {
+              "column_name": "owner_percentage",
+              "data_type": "number",
+              "ordinal_position": 9
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 10
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 11
+            },
+            {
+              "column_name": "zone_area_id",
+              "data_type": "string",
+              "ordinal_position": 12
+            },
+            {
+              "column_name": "airbnb_listing_id",
+              "data_type": "object",
+              "ordinal_position": 13
+            },
+            {
+              "column_name": "internet_connection_type_id",
+              "data_type": "string",
+              "ordinal_position": 14
+            },
+            {
+              "column_name": "water_customer_code",
+              "data_type": "object",
+              "ordinal_position": 15
+            },
+            {
+              "column_name": "water_contract_code",
+              "data_type": "object",
+              "ordinal_position": 16
+            },
+            {
+              "column_name": "water_meter_number",
+              "data_type": "object",
+              "ordinal_position": 17
+            },
+            {
+              "column_name": "water_correspondent",
+              "data_type": "object",
+              "ordinal_position": 18
+            },
+            {
+              "column_name": "electricity_pdl_ref",
+              "data_type": "object",
+              "ordinal_position": 19
+            },
+            {
+              "column_name": "electricity_customer_number",
+              "data_type": "object",
+              "ordinal_position": 20
+            },
+            {
+              "column_name": "electricity_meter_number",
+              "data_type": "object",
+              "ordinal_position": 21
+            },
+            {
+              "column_name": "electricity_correspondent",
+              "data_type": "object",
+              "ordinal_position": 22
+            },
+            {
+              "column_name": "gas_pdl_ref",
+              "data_type": "object",
+              "ordinal_position": 23
+            },
+            {
+              "column_name": "gas_customer_number",
+              "data_type": "object",
+              "ordinal_position": 24
+            },
+            {
+              "column_name": "gas_meter_number",
+              "data_type": "object",
+              "ordinal_position": 25
+            },
+            {
+              "column_name": "gas_correspondent",
+              "data_type": "object",
+              "ordinal_position": 26
+            },
+            {
+              "column_name": "phone_number",
+              "data_type": "object",
+              "ordinal_position": 27
+            },
+            {
+              "column_name": "frequence_paiement_eau",
+              "data_type": "object",
+              "ordinal_position": 28
+            },
+            {
+              "column_name": "prochaine_echeance_eau",
+              "data_type": "object",
+              "ordinal_position": 29
+            },
+            {
+              "column_name": "frequence_paiement_energie",
+              "data_type": "object",
+              "ordinal_position": 30
+            },
+            {
+              "column_name": "prochaine_echeance_energie",
+              "data_type": "object",
+              "ordinal_position": 31
+            },
+            {
+              "column_name": "frequence_paiement_telephone",
+              "data_type": "object",
+              "ordinal_position": 32
+            },
+            {
+              "column_name": "prochaine_echeance_telephone",
+              "data_type": "object",
+              "ordinal_position": 33
+            },
+            {
+              "column_name": "frequence_paiement_internet",
+              "data_type": "object",
+              "ordinal_position": 34
+            },
+            {
+              "column_name": "prochaine_echeance_internet",
+              "data_type": "object",
+              "ordinal_position": 35
+            },
+            {
+              "column_name": "price_per_night",
+              "data_type": "object",
+              "ordinal_position": 36
+            },
+            {
+              "column_name": "frequence_paiement_tv",
+              "data_type": "string",
+              "ordinal_position": 37
+            },
+            {
+              "column_name": "prochaine_echeance_tv",
+              "data_type": "string",
+              "ordinal_position": 38
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "description",
+            "address",
+            "price_per_month",
+            "status",
+            "owner_id",
+            "company_percentage",
+            "owner_percentage",
+            "zone_area_id",
+            "internet_connection_type_id",
+            "airbnb_listing_id",
+            "water_customer_code",
+            "water_contract_code",
+            "water_meter_number",
+            "water_correspondent",
+            "electricity_pdl_ref",
+            "electricity_customer_number",
+            "electricity_meter_number",
+            "electricity_correspondent",
+            "gas_pdl_ref",
+            "gas_customer_number",
+            "gas_meter_number",
+            "gas_correspondent",
+            "phone_number",
+            "frequence_paiement_eau",
+            "prochaine_echeance_eau",
+            "frequence_paiement_energie",
+            "prochaine_echeance_energie",
+            "frequence_paiement_telephone",
+            "prochaine_echeance_telephone",
+            "frequence_paiement_internet",
+            "prochaine_echeance_internet",
+            "frequence_paiement_tv",
+            "prochaine_echeance_tv",
+            "created_at",
+            "updated_at",
+            "price_per_night"
+          ],
+          "recordCount": 3,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "address",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "price_per_month",
+              "data_type": "number",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "status",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "owner_id",
+              "data_type": "string",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "company_percentage",
+              "data_type": "number",
+              "ordinal_position": 8
+            },
+            {
+              "column_name": "owner_percentage",
+              "data_type": "number",
+              "ordinal_position": 9
+            },
+            {
+              "column_name": "zone_area_id",
+              "data_type": "string",
+              "ordinal_position": 10
+            },
+            {
+              "column_name": "internet_connection_type_id",
+              "data_type": "object",
+              "ordinal_position": 11
+            },
+            {
+              "column_name": "airbnb_listing_id",
+              "data_type": "object",
+              "ordinal_position": 12
+            },
+            {
+              "column_name": "water_customer_code",
+              "data_type": "object",
+              "ordinal_position": 13
+            },
+            {
+              "column_name": "water_contract_code",
+              "data_type": "object",
+              "ordinal_position": 14
+            },
+            {
+              "column_name": "water_meter_number",
+              "data_type": "object",
+              "ordinal_position": 15
+            },
+            {
+              "column_name": "water_correspondent",
+              "data_type": "object",
+              "ordinal_position": 16
+            },
+            {
+              "column_name": "electricity_pdl_ref",
+              "data_type": "object",
+              "ordinal_position": 17
+            },
+            {
+              "column_name": "electricity_customer_number",
+              "data_type": "object",
+              "ordinal_position": 18
+            },
+            {
+              "column_name": "electricity_meter_number",
+              "data_type": "object",
+              "ordinal_position": 19
+            },
+            {
+              "column_name": "electricity_correspondent",
+              "data_type": "object",
+              "ordinal_position": 20
+            },
+            {
+              "column_name": "gas_pdl_ref",
+              "data_type": "object",
+              "ordinal_position": 21
+            },
+            {
+              "column_name": "gas_customer_number",
+              "data_type": "object",
+              "ordinal_position": 22
+            },
+            {
+              "column_name": "gas_meter_number",
+              "data_type": "object",
+              "ordinal_position": 23
+            },
+            {
+              "column_name": "gas_correspondent",
+              "data_type": "object",
+              "ordinal_position": 24
+            },
+            {
+              "column_name": "phone_number",
+              "data_type": "object",
+              "ordinal_position": 25
+            },
+            {
+              "column_name": "frequence_paiement_eau",
+              "data_type": "object",
+              "ordinal_position": 26
+            },
+            {
+              "column_name": "prochaine_echeance_eau",
+              "data_type": "object",
+              "ordinal_position": 27
+            },
+            {
+              "column_name": "frequence_paiement_energie",
+              "data_type": "object",
+              "ordinal_position": 28
+            },
+            {
+              "column_name": "prochaine_echeance_energie",
+              "data_type": "object",
+              "ordinal_position": 29
+            },
+            {
+              "column_name": "frequence_paiement_telephone",
+              "data_type": "object",
+              "ordinal_position": 30
+            },
+            {
+              "column_name": "prochaine_echeance_telephone",
+              "data_type": "object",
+              "ordinal_position": 31
+            },
+            {
+              "column_name": "frequence_paiement_internet",
+              "data_type": "object",
+              "ordinal_position": 32
+            },
+            {
+              "column_name": "prochaine_echeance_internet",
+              "data_type": "object",
+              "ordinal_position": 33
+            },
+            {
+              "column_name": "frequence_paiement_tv",
+              "data_type": "object",
+              "ordinal_position": 34
+            },
+            {
+              "column_name": "prochaine_echeance_tv",
+              "data_type": "object",
+              "ordinal_position": 35
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 36
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 37
+            },
+            {
+              "column_name": "price_per_night",
+              "data_type": "object",
+              "ordinal_position": 38
+            }
+          ]
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Type différent pour internet_connection_type_id: prod(string) vs test(object)",
+        "Type différent pour frequence_paiement_tv: prod(string) vs test(object)",
+        "Type différent pour prochaine_echeance_tv: prod(string) vs test(object)"
+      ],
+      "recommendations": [
+        "Harmoniser le type de internet_connection_type_id entre prod et test",
+        "Harmoniser le type de frequence_paiement_tv entre prod et test",
+        "Harmoniser le type de prochaine_echeance_tv entre prod et test"
+      ]
+    },
+    {
+      "name": "categories",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "description",
+            "type",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 13,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "type",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 6
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "description",
+            "type",
+            "created_at"
+          ],
+          "recordCount": 13,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "type",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 5
+            }
+          ]
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: updated_at"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: updated_at"
+      ]
+    },
+    {
+      "name": "currencies",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "code",
+            "name",
+            "symbol",
+            "decimal_digits",
+            "is_default",
+            "created_at",
+            "updated_at",
+            "ratio"
+          ],
+          "recordCount": 3,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "code",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "symbol",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "decimal_digits",
+              "data_type": "number",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "is_default",
+              "data_type": "boolean",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 8
+            },
+            {
+              "column_name": "ratio",
+              "data_type": "number",
+              "ordinal_position": 9
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, code, name, symbol, decimal_digits, is_default, created_at, updated_at, ratio"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, code, name, symbol, decimal_digits, is_default, created_at, updated_at, ratio"
+      ]
+    },
+    {
+      "name": "payment_methods",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "type",
+            "details",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 3,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "type",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "details",
+              "data_type": "object",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 6
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "type",
+            "details",
+            "created_at"
+          ],
+          "recordCount": 3,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "type",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "details",
+              "data_type": "object",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 5
+            }
+          ]
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: updated_at"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: updated_at"
+      ]
+    },
+    {
+      "name": "teams",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "description",
+            "created_by",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 1,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "created_by",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 6
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, name, description, created_by, created_at, updated_at"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, name, description, created_by, created_at, updated_at"
+      ]
+    },
+    {
+      "name": "team_members",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    },
+    {
+      "name": "tasks",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "title",
+            "description",
+            "status",
+            "due_date",
+            "assigned_to",
+            "team_id",
+            "loft_id",
+            "created_by",
+            "created_at",
+            "updated_at",
+            "amount",
+            "currency"
+          ],
+          "recordCount": 53,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "title",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "status",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "due_date",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "assigned_to",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "team_id",
+              "data_type": "object",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "loft_id",
+              "data_type": "object",
+              "ordinal_position": 8
+            },
+            {
+              "column_name": "created_by",
+              "data_type": "object",
+              "ordinal_position": 9
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 10
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 11
+            },
+            {
+              "column_name": "amount",
+              "data_type": "number",
+              "ordinal_position": 12
+            },
+            {
+              "column_name": "currency",
+              "data_type": "string",
+              "ordinal_position": 13
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, title, description, status, due_date, assigned_to, team_id, loft_id, created_by, created_at, updated_at, amount, currency"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, title, description, status, due_date, assigned_to, team_id, loft_id, created_by, created_at, updated_at, amount, currency"
+      ]
+    },
+    {
+      "name": "transactions",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    },
+    {
+      "name": "notifications",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "user_id",
+            "title",
+            "message",
+            "is_read",
+            "created_at",
+            "link",
+            "sender_id",
+            "type"
+          ],
+          "recordCount": 120,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "user_id",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "title",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "message",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "is_read",
+              "data_type": "boolean",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "link",
+              "data_type": "object",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "sender_id",
+              "data_type": "object",
+              "ordinal_position": 8
+            },
+            {
+              "column_name": "type",
+              "data_type": "string",
+              "ordinal_position": 9
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, user_id, title, message, is_read, created_at, link, sender_id, type"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, user_id, title, message, is_read, created_at, link, sender_id, type"
+      ]
+    },
+    {
+      "name": "transaction_category_references",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "category",
+            "transaction_type",
+            "reference_amount",
+            "currency",
+            "description",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 19,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "category",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "transaction_type",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "reference_amount",
+              "data_type": "number",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "currency",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 8
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [
+            "id",
+            "category",
+            "transaction_type",
+            "reference_amount",
+            "currency",
+            "description",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 19,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "category",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "transaction_type",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "reference_amount",
+              "data_type": "number",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "currency",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "description",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 8
+            }
+          ]
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    },
+    {
+      "name": "settings",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "key",
+            "value"
+          ],
+          "recordCount": 2,
+          "structure": [
+            {
+              "column_name": "key",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "value",
+              "data_type": "string",
+              "ordinal_position": 2
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [
+            "key",
+            "value"
+          ],
+          "recordCount": 2,
+          "structure": [
+            {
+              "column_name": "key",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "value",
+              "data_type": "string",
+              "ordinal_position": 2
+            }
+          ]
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [],
+      "recommendations": []
+    },
+    {
+      "name": "conversations",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "name",
+            "type",
+            "created_at",
+            "updated_at"
+          ],
+          "recordCount": 7,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "name",
+              "data_type": "object",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "type",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "string",
+              "ordinal_position": 5
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, name, type, created_at, updated_at"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, name, type, created_at, updated_at"
+      ]
+    },
+    {
+      "name": "conversation_participants",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "conversation_id",
+            "user_id",
+            "joined_at",
+            "last_read_at",
+            "role"
+          ],
+          "recordCount": 15,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "conversation_id",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "user_id",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "joined_at",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "last_read_at",
+              "data_type": "object",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "role",
+              "data_type": "string",
+              "ordinal_position": 6
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, conversation_id, user_id, joined_at, last_read_at, role"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, conversation_id, user_id, joined_at, last_read_at, role"
+      ]
+    },
+    {
+      "name": "messages",
+      "environments": {
+        "prod": {
+          "exists": true,
+          "columns": [
+            "id",
+            "conversation_id",
+            "sender_id",
+            "content",
+            "message_type",
+            "created_at",
+            "updated_at",
+            "edited"
+          ],
+          "recordCount": 15,
+          "structure": [
+            {
+              "column_name": "id",
+              "data_type": "string",
+              "ordinal_position": 1
+            },
+            {
+              "column_name": "conversation_id",
+              "data_type": "string",
+              "ordinal_position": 2
+            },
+            {
+              "column_name": "sender_id",
+              "data_type": "string",
+              "ordinal_position": 3
+            },
+            {
+              "column_name": "content",
+              "data_type": "string",
+              "ordinal_position": 4
+            },
+            {
+              "column_name": "message_type",
+              "data_type": "string",
+              "ordinal_position": 5
+            },
+            {
+              "column_name": "created_at",
+              "data_type": "string",
+              "ordinal_position": 6
+            },
+            {
+              "column_name": "updated_at",
+              "data_type": "object",
+              "ordinal_position": 7
+            },
+            {
+              "column_name": "edited",
+              "data_type": "boolean",
+              "ordinal_position": 8
+            }
+          ]
+        },
+        "test": {
+          "exists": true,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        },
+        "dev": {
+          "exists": false,
+          "columns": [],
+          "recordCount": 0,
+          "structure": []
+        }
+      },
+      "issues": [
+        "Colonnes manquantes dans test: id, conversation_id, sender_id, content, message_type, created_at, updated_at, edited"
+      ],
+      "recommendations": [
+        "Ajouter colonnes dans test: id, conversation_id, sender_id, content, message_type, created_at, updated_at, edited"
+      ]
+    }
+  ],
+  "globalIssues": [],
+  "recommendations": [
+    "Utiliser le script universal-schema-sync.ts pour synchroniser les schémas",
+    "Utiliser le script intelligent-clone.ts pour cloner les données"
+  ],
+  "summary": {
+    "totalEnvironments": 3,
+    "connectedEnvironments": 2,
+    "totalTables": 19,
+    "tablesWithIssues": 13,
+    "totalIssues": 16
+  }
+}

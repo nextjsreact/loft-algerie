@@ -1,0 +1,148 @@
+{
+  "timestamp": "2025-07-31T08:21:45.582Z",
+  "source": "prod",
+  "target": "test",
+  "summary": {
+    "totalTables": 13,
+    "successfulTables": 2,
+    "totalRecords": 22,
+    "adaptations": 0,
+    "errors": [
+      "Table cible non trouvée ou inaccessible",
+      "Table cible non trouvée ou inaccessible",
+      "Table cible non trouvée ou inaccessible",
+      "Table cible non trouvée ou inaccessible",
+      "Table cible non trouvée ou inaccessible",
+      "Table cible non trouvée ou inaccessible",
+      "Table cible non trouvée ou inaccessible",
+      "Table cible non trouvée ou inaccessible",
+      "Enregistrement: duplicate key value violates unique constraint \"settings_pkey\"",
+      "Enregistrement: duplicate key value violates unique constraint \"settings_pkey\""
+    ],
+    "results": {
+      "zone_areas": {
+        "table": "zone_areas",
+        "status": "error",
+        "sourceCount": 6,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "internet_connection_types": {
+        "table": "internet_connection_types",
+        "status": "error",
+        "sourceCount": 13,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "loft_owners": {
+        "table": "loft_owners",
+        "status": "success",
+        "sourceCount": 3,
+        "targetCount": 3,
+        "adaptations": [],
+        "errors": []
+      },
+      "categories": {
+        "table": "categories",
+        "status": "error",
+        "sourceCount": 13,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "currencies": {
+        "table": "currencies",
+        "status": "error",
+        "sourceCount": 3,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "payment_methods": {
+        "table": "payment_methods",
+        "status": "error",
+        "sourceCount": 3,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "lofts": {
+        "table": "lofts",
+        "status": "error",
+        "sourceCount": 3,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "teams": {
+        "table": "teams",
+        "status": "error",
+        "sourceCount": 1,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "team_members": {
+        "table": "team_members",
+        "status": "empty",
+        "sourceCount": 0,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": []
+      },
+      "tasks": {
+        "table": "tasks",
+        "status": "error",
+        "sourceCount": 53,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Table cible non trouvée ou inaccessible"
+        ]
+      },
+      "transaction_category_references": {
+        "table": "transaction_category_references",
+        "status": "success",
+        "sourceCount": 19,
+        "targetCount": 19,
+        "adaptations": [],
+        "errors": []
+      },
+      "transactions": {
+        "table": "transactions",
+        "status": "empty",
+        "sourceCount": 0,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": []
+      },
+      "settings": {
+        "table": "settings",
+        "status": "error",
+        "sourceCount": 2,
+        "targetCount": 0,
+        "adaptations": [],
+        "errors": [
+          "Enregistrement: duplicate key value violates unique constraint \"settings_pkey\"",
+          "Enregistrement: duplicate key value violates unique constraint \"settings_pkey\""
+        ]
+      }
+    }
+  }
+}

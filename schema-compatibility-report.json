@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-07-30T19:15:31.939Z",
+  "environment": "production",
+  "results": {
+    "existingTables": [
+      "profiles",
+      "user_sessions",
+      "zone_areas",
+      "internet_connection_types",
+      "loft_owners",
+      "lofts",
+      "categories",
+      "currencies",
+      "payment_methods",
+      "teams",
+      "team_members",
+      "tasks",
+      "transactions",
+      "notifications",
+      "transaction_category_references",
+      "settings",
+      "conversations",
+      "conversation_participants",
+      "messages"
+    ],
+    "missingTables": [],
+    "missingColumns": [],
+    "extraTables": [],
+    "totalRecords": 286
+  }
+}

@@ -114,8 +114,8 @@ export function LoftsList({ lofts, owners, zoneAreas, isAdmin }: LoftsListProps)
             <CardContent>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">{t('lofts.monthlyRent')}:</span>
-                  <span className="font-medium">${loft.price_per_month}</span>
+                  <span className="text-sm text-muted-foreground">{t('lofts.dailyRent')}:</span>
+                  <span className="font-medium">{loft.price_per_month} DA</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-muted-foreground">{t('lofts.owner')}:</span>

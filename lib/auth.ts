@@ -14,9 +14,37 @@ export async function getSession(): Promise<AuthSession | null> {
     return null;
   }
 
-  // Directly use user_metadata for profile information
-  const full_name = user.user_metadata?.full_name || null;
-  const role = user.user_metadata?.role || 'member'; // Default role to 'member'
+  // Get profile information from the profiles table (not user_metadata)
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('full_name, role')
+    .eq('id', user.id)
+    .single();
+
+  if (profileError) {
+    console.error('Error fetching user profile:', profileError);
+    // Fallback to user_metadata if profile doesn't exist
+    const full_name = user.user_metadata?.full_name || null;
+    const role = user.user_metadata?.role || 'member';
+    
+    const { data: { session: supabaseSessionData }, error: sessionError } = await supabase.auth.getSession();
+
+    if (sessionError || !supabaseSessionData) {
+      return null;
+    }
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email ?? null,
+        full_name: full_name,
+        role: role,
+        created_at: user.created_at,
+        updated_at: user.updated_at ?? null
+      },
+      token: supabaseSessionData.access_token
+    };
+  }
 
   const { data: { session: supabaseSessionData }, error: sessionError } = await supabase.auth.getSession();
 
@@ -28,8 +56,8 @@ export async function getSession(): Promise<AuthSession | null> {
     user: {
       id: user.id,
       email: user.email ?? null,
-      full_name: full_name,
-      role: role,
+      full_name: profile.full_name || user.user_metadata?.full_name || null,
+      role: profile.role || 'member', // Use role from profiles table
       created_at: user.created_at,
       updated_at: user.updated_at ?? null
     },

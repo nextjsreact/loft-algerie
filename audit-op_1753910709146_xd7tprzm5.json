@@ -1,0 +1,61 @@
+{
+  "operationId": "op_1753910709146_xd7tprzm5",
+  "timestamp": "2025-07-30T21:25:52.831Z",
+  "operation": "SECURE_CLONE_PROD_TO_TEST",
+  "source": "prod",
+  "target": "test",
+  "confirmed": true,
+  "totalRecords": 22,
+  "tablesProcessed": 12,
+  "results": {
+    "zone_areas": {
+      "status": "success",
+      "records": 0
+    },
+    "internet_connection_types": {
+      "status": "success",
+      "records": 0
+    },
+    "loft_owners": {
+      "status": "success",
+      "records": 3
+    },
+    "lofts": {
+      "status": "success",
+      "records": 0
+    },
+    "categories": {
+      "status": "success",
+      "records": 0
+    },
+    "currencies": {
+      "status": "success",
+      "records": 0
+    },
+    "payment_methods": {
+      "status": "success",
+      "records": 0
+    },
+    "teams": {
+      "status": "success",
+      "records": 0
+    },
+    "team_members": {
+      "status": "empty",
+      "records": 0
+    },
+    "tasks": {
+      "status": "success",
+      "records": 0
+    },
+    "transaction_category_references": {
+      "status": "success",
+      "records": 19
+    },
+    "settings": {
+      "status": "success",
+      "records": 0
+    }
+  },
+  "securityLevel": "STANDARD"
+}

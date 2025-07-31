@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { LoftForm } from "@/components/forms/loft-form"
 import { updateLoft } from "@/app/actions/lofts"
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import { useTranslation } from "@/lib/i18n/context"
 
 export function EditLoftFormWrapper({ loft, owners, zoneAreas, internetConnectionTypes }: any) {
@@ -14,29 +14,24 @@ export function EditLoftFormWrapper({ loft, owners, zoneAreas, internetConnectio
     try {
       const result = await updateLoft(loft.id, data)
       if (result?.success) {
-        toast({
-          title: `✅ ${t('common.success')}`,
-          description: `${t('lofts.title')} "${loft.name}" ${t('lofts.updateSuccess')}`,
-          duration: 3000,
+        toast.success(`🏠 Loft "${loft.name}" mis à jour avec succès !`, {
+          description: "Toutes les modifications ont été sauvegardées",
+          duration: 4000,
         })
         setTimeout(() => {
           router.push("/lofts")
-        }, 1000)
+        }, 1500)
       } else {
-        toast({
-          title: `❌ ${t('common.error')}`,
-          description: t('lofts.updateError'),
-          variant: "destructive",
+        toast.error("❌ Erreur lors de la mise à jour", {
+          description: "Impossible de sauvegarder les modifications. Vérifiez vos données et réessayez.",
           duration: 5000,
         })
       }
     } catch (error) {
       console.error('Error updating loft:', error)
-      toast({
-        title: `❌ ${t('common.error')}`,
-        description: t('lofts.updateConnectionError'),
-        variant: "destructive",
-        duration: 5000,
+      toast.error("💥 Erreur système", {
+        description: "Une erreur inattendue s'est produite lors de la mise à jour. Contactez le support si le problème persiste.",
+        duration: 6000,
       })
     }
   }

@@ -4,7 +4,7 @@ import { LoftForm } from "@/components/forms/loft-form"
 import { createLoft } from "@/app/actions/lofts"
 import type { LoftOwner, InternetConnectionType } from "@/lib/types"
 import type { ZoneArea } from "@/app/actions/zone-areas"
-import { toast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 
@@ -21,29 +21,24 @@ export function NewLoftFormWrapper({ owners, zoneAreas, internetConnectionTypes 
     try {
       const result = await createLoft(data)
       if (result?.success) {
-        toast({
-          title: "✅ Success",
-          description: `Loft "${data.name}" created successfully`,
-          duration: 3000,
+        toast.success(`🏠 Loft "${data.name}" créé avec succès !`, {
+          description: "Le loft a été ajouté à votre système de gestion",
+          duration: 4000,
         })
         setTimeout(() => {
           router.push("/lofts")
-        }, 1000)
+        }, 1500)
       } else {
-        toast({
-          title: "❌ Error",
-          description: "Failed to create loft - please try again",
-          variant: "destructive",
+        toast.error("❌ Erreur lors de la création", {
+          description: "Impossible de créer le loft. Vérifiez vos données et réessayez.",
           duration: 5000,
         })
       }
     } catch (error) {
       console.error('Error creating loft:', error)
-      toast({
-        title: "❌ Error",
-        description: "Failed to create loft - please check your data and try again",
-        variant: "destructive",
-        duration: 5000,
+      toast.error("💥 Erreur système", {
+        description: "Une erreur inattendue s'est produite. Contactez le support si le problème persiste.",
+        duration: 6000,
       })
     }
   }

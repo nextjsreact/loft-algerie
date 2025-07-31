@@ -1,0 +1,334 @@
+{
+  "metadata": {
+    "environment": "test",
+    "timestamp": "2025-07-31T01:42:08.465Z",
+    "exported_by": "Database Export Script",
+    "total_tables": 18,
+    "total_records": 24,
+    "anonymized": true,
+    "version": "1.0"
+  },
+  "tables": {
+    "currencies": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "categories": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "zone_areas": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "internet_connection_types": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "payment_methods": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "loft_owners": {
+      "status": "success",
+      "records": 3,
+      "data": [
+        {
+          "id": "68dcda4b-6d78-4271-90ee-08c0fb201513",
+          "name": "Loft Algerie",
+          "email": "ownerjyj@test.local",
+          "phone": "+213XXXXXXXX",
+          "address": "Adresse anonymisée",
+          "ownership_type": "company",
+          "created_at": "2025-07-07T19:00:40.35449+00:00",
+          "updated_at": "2025-07-07T19:00:40.35449+00:00"
+        },
+        {
+          "id": "fa11a8c8-e340-41f8-add7-7881cd5fa944",
+          "name": "Bachir",
+          "email": "owner49g@test.local",
+          "phone": "+213XXXXXXXX",
+          "address": "Adresse anonymisée",
+          "ownership_type": "third_party",
+          "created_at": "2025-07-27T22:49:08.148059+00:00",
+          "updated_at": "2025-07-27T22:49:08.148059+00:00"
+        },
+        {
+          "id": "755b4b7a-de97-4134-a3b4-34e67c6e998d",
+          "name": "Saliha",
+          "email": null,
+          "phone": null,
+          "address": "Adresse anonymisée",
+          "ownership_type": "third_party",
+          "created_at": "2025-07-29T10:10:19.226539+00:00",
+          "updated_at": "2025-07-29T10:10:19.226539+00:00"
+        }
+      ]
+    },
+    "lofts": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "profiles": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "teams": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "team_members": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "tasks": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "transactions": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "transaction_category_references": {
+      "status": "success",
+      "records": 19,
+      "data": [
+        {
+          "id": "8dcaa640-2378-457b-af17-da75fd8d545d",
+          "category": "maintenance",
+          "transaction_type": "expense",
+          "reference_amount": 5000,
+          "currency": "DZD",
+          "description": "Maintenance générale des lofts",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "400ccdee-7598-46ea-af20-045577a99466",
+          "category": "cleaning",
+          "transaction_type": "expense",
+          "reference_amount": 2000,
+          "currency": "DZD",
+          "description": "Nettoyage et entretien",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "d0dacd0a-09a8-4052-b8c5-e4492d69558a",
+          "category": "repair",
+          "transaction_type": "expense",
+          "reference_amount": 8000,
+          "currency": "DZD",
+          "description": "Réparations diverses",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "399ce0cf-2849-4f6f-a6f0-6b06ab3e6329",
+          "category": "plumbing",
+          "transaction_type": "expense",
+          "reference_amount": 6000,
+          "currency": "DZD",
+          "description": "Plomberie",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "c353f052-ee01-442a-a7e1-2f4596a19258",
+          "category": "electrical",
+          "transaction_type": "expense",
+          "reference_amount": 7000,
+          "currency": "DZD",
+          "description": "Électricité",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "48d33e0c-58c6-438a-8ee5-d9a6be9345af",
+          "category": "painting",
+          "transaction_type": "expense",
+          "reference_amount": 4000,
+          "currency": "DZD",
+          "description": "Peinture et décoration",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "0ffa61a0-e75b-42ce-8e1a-abb795a59d14",
+          "category": "security",
+          "transaction_type": "expense",
+          "reference_amount": 3000,
+          "currency": "DZD",
+          "description": "Sécurité",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "8e7b4b41-8a6b-4755-b931-fbda46e23ba0",
+          "category": "inspection",
+          "transaction_type": "expense",
+          "reference_amount": 1500,
+          "currency": "DZD",
+          "description": "Inspections",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "db5c800b-7286-455a-b3f0-93d620b3ecf7",
+          "category": "utilities",
+          "transaction_type": "expense",
+          "reference_amount": 4000,
+          "currency": "DZD",
+          "description": "Factures utilitaires (eau, gaz, électricité)",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "e03013d4-198a-4f27-92d1-971a15ceb3cf",
+          "category": "insurance",
+          "transaction_type": "expense",
+          "reference_amount": 10000,
+          "currency": "DZD",
+          "description": "Assurances",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "dab210de-6441-4e9c-8758-efb794223d70",
+          "category": "taxes",
+          "transaction_type": "expense",
+          "reference_amount": 15000,
+          "currency": "DZD",
+          "description": "Taxes et impôts",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "079247a1-3576-4ab7-b019-6a44d91aba25",
+          "category": "supplies",
+          "transaction_type": "expense",
+          "reference_amount": 2500,
+          "currency": "DZD",
+          "description": "Fournitures et matériaux",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "cb6fadea-fb48-400f-9551-d4b5f8e73a79",
+          "category": "other",
+          "transaction_type": "expense",
+          "reference_amount": 3000,
+          "currency": "DZD",
+          "description": "Autres dépenses",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "10968237-58ab-44f0-8941-5bfb79edccf4",
+          "category": "rent",
+          "transaction_type": "income",
+          "reference_amount": 50000,
+          "currency": "DZD",
+          "description": "Loyers mensuels",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "745ed50d-3b91-426e-937b-5a4638060f86",
+          "category": "deposit",
+          "transaction_type": "income",
+          "reference_amount": 100000,
+          "currency": "DZD",
+          "description": "Cautions et dépôts",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "6c9692e6-f708-40dc-8955-a4762c6204e2",
+          "category": "late_fees",
+          "transaction_type": "income",
+          "reference_amount": 5000,
+          "currency": "DZD",
+          "description": "Frais de retard",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "18f04e98-1ef4-4efd-9c48-fd864e49e5cc",
+          "category": "parking",
+          "transaction_type": "income",
+          "reference_amount": 5000,
+          "currency": "DZD",
+          "description": "Frais de parking",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "3c03422c-a310-4e26-bceb-c2bd4df79f21",
+          "category": "services",
+          "transaction_type": "income",
+          "reference_amount": 10000,
+          "currency": "DZD",
+          "description": "Services additionnels",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        },
+        {
+          "id": "3266cd82-edf5-4d7e-a80f-1f8e0035438a",
+          "category": "other",
+          "transaction_type": "income",
+          "reference_amount": 20000,
+          "currency": "DZD",
+          "description": "Autres revenus",
+          "created_at": "2025-07-22T23:00:38.78056+00:00",
+          "updated_at": "2025-07-22T23:00:38.78056+00:00"
+        }
+      ]
+    },
+    "conversations": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "conversation_participants": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "messages": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "notifications": {
+      "status": "empty",
+      "records": 0,
+      "data": []
+    },
+    "settings": {
+      "status": "success",
+      "records": 2,
+      "data": [
+        {
+          "key": "theme",
+          "value": "dark"
+        },
+        {
+          "key": "admin_email",
+          "value": ""
+        }
+      ]
+    }
+  }
+}

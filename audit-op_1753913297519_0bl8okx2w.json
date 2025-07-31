@@ -1,0 +1,208 @@
+{
+  "operationId": "op_1753913297519_0bl8okx2w",
+  "timestamp": "2025-07-30T22:09:45.789Z",
+  "operation": "SECURE_CLONE_PROD_TO_TEST",
+  "source": "prod",
+  "target": "test",
+  "confirmed": true,
+  "totalRecords": 50,
+  "tablesProcessed": 12,
+  "results": {
+    "zone_areas": {
+      "status": "success",
+      "sourceRecords": 6,
+      "targetRecords": 6,
+      "adaptations": [
+        "6 enregistrements non clonés"
+      ]
+    },
+    "internet_connection_types": {
+      "status": "success",
+      "sourceRecords": 13,
+      "targetRecords": 1,
+      "adaptations": [
+        "13 enregistrements non clonés"
+      ]
+    },
+    "loft_owners": {
+      "status": "success",
+      "sourceRecords": 3,
+      "targetRecords": 3,
+      "adaptations": []
+    },
+    "categories": {
+      "status": "success",
+      "sourceRecords": 13,
+      "targetRecords": 13,
+      "adaptations": [
+        "13 enregistrements non clonés"
+      ]
+    },
+    "currencies": {
+      "status": "success",
+      "sourceRecords": 3,
+      "targetRecords": 3,
+      "adaptations": [
+        "3 enregistrements non clonés"
+      ]
+    },
+    "payment_methods": {
+      "status": "success",
+      "sourceRecords": 3,
+      "targetRecords": 0,
+      "adaptations": [
+        "3 enregistrements non clonés"
+      ]
+    },
+    "lofts": {
+      "status": "success",
+      "sourceRecords": 3,
+      "targetRecords": 3,
+      "adaptations": [
+        "Colonnes supprimées: airbnb_listing_id, water_customer_code, water_contract_code, water_meter_number, water_correspondent, electricity_pdl_ref, electricity_customer_number, electricity_meter_number, electricity_correspondent, gas_pdl_ref, gas_customer_number, gas_meter_number, gas_correspondent, phone_number, price_per_night",
+        "3 enregistrements non clonés"
+      ]
+    },
+    "teams": {
+      "status": "success",
+      "sourceRecords": 1,
+      "targetRecords": 1,
+      "adaptations": [
+        "1 enregistrements non clonés"
+      ]
+    },
+    "team_members": {
+      "status": "empty",
+      "sourceRecords": 0,
+      "targetRecords": 0,
+      "adaptations": []
+    },
+    "tasks": {
+      "status": "success",
+      "sourceRecords": 53,
+      "targetRecords": 1,
+      "adaptations": [
+        "Colonnes supprimées: amount, currency",
+        "52 enregistrements non clonés"
+      ]
+    },
+    "transaction_category_references": {
+      "status": "success",
+      "sourceRecords": 19,
+      "targetRecords": 19,
+      "adaptations": []
+    },
+    "settings": {
+      "status": "success",
+      "sourceRecords": 2,
+      "targetRecords": 0,
+      "adaptations": [
+        "Avertissement vidage: column settings.id does not exist",
+        "2 enregistrements non clonés"
+      ]
+    }
+  },
+  "cloneEngineResult": {
+    "success": true,
+    "totalRecords": 50,
+    "tablesProcessed": 12,
+    "results": {
+      "zone_areas": {
+        "status": "success",
+        "sourceRecords": 6,
+        "targetRecords": 6,
+        "adaptations": [
+          "6 enregistrements non clonés"
+        ]
+      },
+      "internet_connection_types": {
+        "status": "success",
+        "sourceRecords": 13,
+        "targetRecords": 1,
+        "adaptations": [
+          "13 enregistrements non clonés"
+        ]
+      },
+      "loft_owners": {
+        "status": "success",
+        "sourceRecords": 3,
+        "targetRecords": 3,
+        "adaptations": []
+      },
+      "categories": {
+        "status": "success",
+        "sourceRecords": 13,
+        "targetRecords": 13,
+        "adaptations": [
+          "13 enregistrements non clonés"
+        ]
+      },
+      "currencies": {
+        "status": "success",
+        "sourceRecords": 3,
+        "targetRecords": 3,
+        "adaptations": [
+          "3 enregistrements non clonés"
+        ]
+      },
+      "payment_methods": {
+        "status": "success",
+        "sourceRecords": 3,
+        "targetRecords": 0,
+        "adaptations": [
+          "3 enregistrements non clonés"
+        ]
+      },
+      "lofts": {
+        "status": "success",
+        "sourceRecords": 3,
+        "targetRecords": 3,
+        "adaptations": [
+          "Colonnes supprimées: airbnb_listing_id, water_customer_code, water_contract_code, water_meter_number, water_correspondent, electricity_pdl_ref, electricity_customer_number, electricity_meter_number, electricity_correspondent, gas_pdl_ref, gas_customer_number, gas_meter_number, gas_correspondent, phone_number, price_per_night",
+          "3 enregistrements non clonés"
+        ]
+      },
+      "teams": {
+        "status": "success",
+        "sourceRecords": 1,
+        "targetRecords": 1,
+        "adaptations": [
+          "1 enregistrements non clonés"
+        ]
+      },
+      "team_members": {
+        "status": "empty",
+        "sourceRecords": 0,
+        "targetRecords": 0,
+        "adaptations": []
+      },
+      "tasks": {
+        "status": "success",
+        "sourceRecords": 53,
+        "targetRecords": 1,
+        "adaptations": [
+          "Colonnes supprimées: amount, currency",
+          "52 enregistrements non clonés"
+        ]
+      },
+      "transaction_category_references": {
+        "status": "success",
+        "sourceRecords": 19,
+        "targetRecords": 19,
+        "adaptations": []
+      },
+      "settings": {
+        "status": "success",
+        "sourceRecords": 2,
+        "targetRecords": 0,
+        "adaptations": [
+          "Avertissement vidage: column settings.id does not exist",
+          "2 enregistrements non clonés"
+        ]
+      }
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "securityLevel": "STANDARD"
+}
