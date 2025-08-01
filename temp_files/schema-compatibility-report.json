@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-07-30T19:15:31.939Z",
+  "timestamp": "2025-07-31T20:59:29.587Z",
   "environment": "production",
   "results": {
     "existingTables": [
@@ -26,6 +26,6 @@
     "missingTables": [],
     "missingColumns": [],
     "extraTables": [],
-    "totalRecords": 286
+    "totalRecords": 147
   }
 }

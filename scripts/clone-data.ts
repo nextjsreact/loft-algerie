@@ -2,12 +2,16 @@
 /**
  * Script de clonage de données entre environnements
  * Clone les données de production vers test ou développement
+ * Améliorations:
+ *  - Ne manipule plus auth.users directement
+ *  - Chargement .env robuste via dotenv
+ *  - Pré-vérification de compatibilité schéma (hook)
+ *  - Pagination pour éviter l'usage mémoire excessif
+ *  - Meilleure journalisation et gestion d'erreurs
  */
 
-import { createClient } from '@supabase/supabase-js'
-import { config } from 'dotenv'
-import { resolve } from 'path'
-import { readFileSync } from 'fs'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import dotenv from 'dotenv'
 
 interface CloneOptions {
   source: 'prod' | 'test' | 'dev'
@@ -15,266 +19,217 @@ interface CloneOptions {
   tables?: string[]
   excludeSensitive?: boolean
   dryRun?: boolean
+  pageSize?: number
 }
 
-class DataCloner {
-  private sourceClient: any
-  private targetClient: any
-  
-  constructor(private options: CloneOptions) {
-    // Initialization will happen in cloneData method
+type TableResult = { status: 'success'|'error'|'empty'|'dry-run', records?: number, error?: string }
+
+export class DataCloner {
+  private sourceClient!: SupabaseClient
+  private targetClient!: SupabaseClient
+
+  constructor(private options: CloneOptions) {}
+
+  private resolveEnvFile(env: 'prod'|'test'|'dev') {
+    return `.env.${env === 'dev' ? 'development' : env}`
   }
 
-  private async initializeClients() {
-    // Charger les configurations d'environnement
-    const sourceEnv = await this.loadEnvironment(this.options.source)
-    const targetEnv = await this.loadEnvironment(this.options.target)
-
-    this.sourceClient = createClient(
-      sourceEnv.NEXT_PUBLIC_SUPABASE_URL,
-      sourceEnv.SUPABASE_SERVICE_ROLE_KEY
-    )
-
-    this.targetClient = createClient(
-      targetEnv.NEXT_PUBLIC_SUPABASE_URL,
-      targetEnv.SUPABASE_SERVICE_ROLE_KEY
-    )
-  }
-
-  private async loadEnvironment(env: string) {
-    const envFile = `.env.${env === 'dev' ? 'development' : env}`
-    
-    const fs = await import('fs')
-    if (!fs.existsSync(envFile)) {
-      throw new Error(`Fichier d'environnement ${envFile} non trouvé`)
+  private loadEnvironment(env: 'prod'|'test'|'dev') {
+    const path = this.resolveEnvFile(env)
+    const res = dotenv.config({ path })
+    if (res.error) {
+      throw new Error(`Fichier d'environnement introuvable ou invalide: ${path}`)
     }
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+    if (!url || !serviceKey) {
+      throw new Error(`Variables manquantes dans ${path}: NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY`)
+    }
+    return { url, serviceKey }
+  }
 
-    const envContent = readFileSync(envFile, 'utf8')
-    const envVars: any = {}
-    
-    envContent.split('\n').forEach(line => {
-      const [key, ...valueParts] = line.split('=')
-      if (key && valueParts.length > 0) {
-        envVars[key.trim()] = valueParts.join('=').replace(/"/g, '').trim()
+  private initializeClients() {
+    const source = this.loadEnvironment(this.options.source)
+    const target = this.loadEnvironment(this.options.target)
+    this.sourceClient = createClient(source.url, source.serviceKey, { auth: { persistSession: false } })
+    this.targetClient = createClient(target.url, target.serviceKey, { auth: { persistSession: false } })
+  }
+
+  // Hook de pré-vérification schéma (non bloquant si indisponible)
+  private async preflightSchemaCheck(): Promise<void> {
+    try {
+      // Si vous avez déjà un endpoint interne: app/api/health ou un script diagnose, appelez-le ici.
+      // Ici, on fait un check minimal: existence de quelques tables clés dans source et cible.
+      const mustHaveTables = ['profiles','lofts','transactions','categories','currencies']
+      for (const [client, label] of [[this.sourceClient,'source'] as const, [this.targetClient,'target'] as const]) {
+        for (const t of mustHaveTables) {
+          const { error } = await client.from(t).select('id').limit(1)
+          if (error) {
+            console.warn(`⚠️ Pré-check schéma (${label}): table "${t}" inaccessible: ${error.message}`)
+          }
+        }
+      }
+      console.log('🧪 Pré-vérification schéma effectuée (non bloquante).')
+    } catch (e: any) {
+      console.warn('⚠️ Échec pré-vérification schéma (ignorée):', e?.message || e)
+    }
+  }
+
+  // Anonymisation
+  private anonymizeProfiles(profiles: any[]): any[] {
+    return profiles.map((profile) => {
+      const isAdmin = profile.role === 'admin'
+      const anonLocal = `${this.options.target}.local`
+      const stableSuffix = (profile.id || '').toString().slice(0, 6) || Math.random().toString(36).slice(2, 8)
+      return {
+        ...profile,
+        email: isAdmin ? `admin@${anonLocal}` : `user_${stableSuffix}@${anonLocal}`,
+        full_name: profile.full_name ? `${profile.full_name} (${this.options.target.toUpperCase()})` : `User ${stableSuffix.toUpperCase()}`,
+        airbnb_access_token: null,
+        airbnb_refresh_token: null,
+        updated_at: new Date().toISOString(),
       }
     })
-
-    return envVars
   }
-
-  // Méthodes d'anonymisation des données sensibles
-  private anonymizeProfiles(profiles: any[]): any[] {
-    const testPassword = this.options.target === 'test' ? 'test123' : 'dev123'
-    
-    return profiles.map(profile => ({
-      ...profile,
-      // Anonymiser les emails sauf les admins
-      email: profile.role === 'admin' ? 
-        `admin@${this.options.target}.local` : 
-        `user${Math.random().toString(36).substr(2, 5)}@${this.options.target}.local`,
-      
-      // Garder les noms mais les marquer comme test
-      full_name: `${profile.full_name} (${this.options.target.toUpperCase()})`,
-      
-      // Supprimer les tokens sensibles
-      airbnb_access_token: null,
-      airbnb_refresh_token: null,
-      
-      // Marquer comme données de test
-      updated_at: new Date().toISOString()
-    }))
-  }
-
-  private anonymizeUserSessions(sessions: any[]): any[] {
-    // Supprimer toutes les sessions existantes pour forcer une nouvelle connexion
-    return []
-  }
-
+  private anonymizeUserSessions(): any[] { return [] }
   private anonymizeNotifications(notifications: any[]): any[] {
-    return notifications.map(notif => ({
-      ...notif,
-      // Anonymiser les messages personnels
-      message: notif.message?.includes('@') ? 
-        'Message de test anonymisé' : 
-        notif.message,
-      
-      // Marquer comme lu pour éviter le spam
+    return notifications.map((n) => ({
+      ...n,
+      message: typeof n.message === 'string' && n.message.includes('@') ? 'Message de test anonymisé' : n.message,
       is_read: true,
-      read_at: new Date().toISOString()
+      read_at: new Date().toISOString(),
     }))
   }
-
   private anonymizeMessages(messages: any[]): any[] {
-    return messages.map(msg => ({
-      ...msg,
-      // Anonymiser le contenu des messages
+    return messages.map((m) => ({
+      ...m,
       content: 'Message de test anonymisé',
-      
-      // Garder la structure mais pas le contenu sensible
-      metadata: msg.metadata ? { ...msg.metadata, anonymized: true } : null
+      metadata: m.metadata ? { ...m.metadata, anonymized: true } : null,
     }))
   }
 
-  // Méthode spéciale pour cloner auth.users avec mots de passe anonymisés
-  private async cloneAuthUsers() {
-    console.log(`\n🔐 Clonage spécial: auth.users (avec mots de passe anonymisés)`)
-    console.log('-' .repeat(50))
-
-    try {
-      // Récupérer tous les utilisateurs de la source
-      const { data: sourceUsers, error: sourceError } = await this.sourceClient
-        .from('users')
-        .select('*')
-
-      if (sourceError) {
-        console.log(`⚠️ Erreur lecture auth.users:`, sourceError.message)
-        return
+  private async fetchTablePaged(client: SupabaseClient, table: string, pageSize: number): Promise<any[]> {
+    let from = 0
+    const out: any[] = []
+    for (;;) {
+      const to = from + pageSize - 1
+      const { data, error } = await client.from(table).select('*').range(from, to)
+      if (error) {
+        throw new Error(`Lecture ${table} échouée: ${error.message}`)
       }
-
-      if (!sourceUsers || sourceUsers.length === 0) {
-        console.log(`ℹ️ Aucun utilisateur trouvé dans auth.users`)
-        return
-      }
-
-      console.log(`👥 ${sourceUsers.length} utilisateurs trouvés`)
-
-      // Anonymiser les mots de passe
-      const testPassword = this.options.target === 'test' ? 'test123' : 'dev123'
-      const hashedPassword = '$2a$10$' + Buffer.from(testPassword).toString('base64').padEnd(53, 'A').substring(0, 53)
-
-      const anonymizedUsers = sourceUsers.map(user => ({
-        ...user,
-        // Remplacer le mot de passe par le mot de passe de test
-        encrypted_password: hashedPassword,
-        
-        // Anonymiser l'email mais garder la structure
-        email: user.email?.includes('@') ? 
-          `user${user.email.split('@')[0].slice(-3)}@${this.options.target}.local` : 
-          `user${Math.random().toString(36).substr(2, 5)}@${this.options.target}.local`,
-        
-        // Supprimer les tokens sensibles
-        recovery_token: null,
-        email_change_token_new: null,
-        email_change_token_current: null,
-        reauthentication_token: null,
-        
-        // Marquer comme confirmé pour éviter les problèmes de validation
-        email_confirmed_at: user.email_confirmed_at || new Date().toISOString(),
-        confirmed_at: user.confirmed_at || new Date().toISOString(),
-        
-        // Mettre à jour les métadonnées
-        raw_user_meta_data: {
-          ...user.raw_user_meta_data,
-          environment: this.options.target,
-          anonymized: true,
-          original_email_hash: user.email ? Buffer.from(user.email).toString('base64').substring(0, 8) : null
-        },
-        
-        updated_at: new Date().toISOString()
-      }))
-
-      // Vider la table auth.users cible
-      const { error: deleteError } = await this.targetClient
-        .from('users')
-        .delete()
-        .neq('id', '00000000-0000-0000-0000-000000000000')
-
-      if (deleteError && !deleteError.message.includes('No rows found')) {
-        console.log(`⚠️ Avertissement nettoyage auth.users:`, deleteError.message)
-      }
-
-      // Insérer les utilisateurs anonymisés
-      const { error: insertError } = await this.targetClient
-        .from('users')
-        .insert(anonymizedUsers)
-
-      if (insertError) {
-        console.log(`❌ Erreur insertion auth.users:`, insertError.message)
-      } else {
-        console.log(`✅ ${anonymizedUsers.length} utilisateurs clonés avec mots de passe anonymisés`)
-        console.log(`🔑 Mot de passe universel: ${testPassword}`)
-      }
-
-    } catch (error) {
-      console.log(`💥 Erreur lors du clonage auth.users:`, error)
+      if (!data || data.length === 0) break
+      out.push(...data)
+      from += pageSize
+      if (data.length < pageSize) break
     }
+    return out
+  }
+
+  private async tableExists(client: SupabaseClient, table: string): Promise<boolean> {
+    // Try a cheap existence probe
+    const { error } = await client.from(table).select('*').limit(1)
+    if (error && `${error.message}`.toLowerCase().includes('relation') && `${error.message}`.toLowerCase().includes('does not exist')) {
+      return false
+    }
+    // If other error, assume exists and let normal flow handle specifics
+    return true
+  }
+
+  private async getTableColumns(client: SupabaseClient, table: string): Promise<Set<string>> {
+    // Fallback: attempt to select one row and infer keys
+    const { data, error } = await client.from(table).select('*').limit(1)
+    if (error) {
+      // If cannot read, return empty (will cause shaping to drop all and then skip)
+      return new Set<string>()
+    }
+    if (data && data.length > 0) {
+      return new Set<string>(Object.keys(data[0] as Record<string, any>))
+    }
+    // If empty, we can't infer; try inserting with unshaped data later. Return empty set to avoid shaping.
+    return new Set<string>()
+  }
+
+  private async truncateTargetTable(table: string) {
+    // Supabase PostgREST n'a pas TRUNCATE; on supprime tout
+    // Attention aux FKs/RLS: on dépend de l'ordre et des politiques permissives côté service role.
+    const { error } = await this.targetClient.from(table).delete().neq('id', '00000000-0000-0000-0000-000000000000')
+    if (error && !`${error.message}`.includes('No rows found')) {
+      console.warn(`⚠️ Nettoyage ${table}: ${error.message}`)
+    }
+  }
+
+  private processSensitive(table: string, rows: any[]): any[] {
+    if (table === 'profiles') return this.anonymizeProfiles(rows)
+    if (table === 'user_sessions') return this.anonymizeUserSessions()
+    if (table === 'notifications') return this.anonymizeNotifications(rows)
+    if (table === 'messages') return this.anonymizeMessages(rows)
+    return rows
   }
 
   async cloneData() {
-    // Initialize clients first
-    await this.initializeClients()
-    
+    // 1) Init clients (dotenv) + 2) Preflight schema check
+    this.initializeClients()
+    await this.preflightSchemaCheck()
+
+    const pageSize = this.options.pageSize ?? 1000
+
     console.log(`🔄 Clonage des données: ${this.options.source.toUpperCase()} → ${this.options.target.toUpperCase()}`)
-    console.log('=' .repeat(70))
+    console.log('='.repeat(70))
+    if (this.options.dryRun) console.log('🧪 MODE TEST - Aucune donnée ne sera modifiée')
 
-    if (this.options.dryRun) {
-      console.log('🧪 MODE TEST - Aucune donnée ne sera modifiée')
-    }
-
-    // Tables à cloner dans l'ordre (pour respecter les contraintes de clés étrangères)
+    // Order: keep explicit list; ideally replace with a server-side FK-topology RPC
     const tablesToClone = this.options.tables || [
-      // Tables de configuration (d'abord)
       'currencies',
-      'categories', 
+      'categories',
       'zone_areas',
       'internet_connection_types',
       'payment_methods',
-      
-      // Tables de base
       'loft_owners',
       'lofts',
-      
-      // Tables de gestion
       'teams',
       'team_members',
       'tasks',
-      
-      // Tables transactionnelles
       'transactions',
       'transaction_category_references',
-      
-      // Configuration système
       'settings'
     ]
 
-    // Tables sensibles qui nécessitent un traitement spécial (anonymisation)
-    const sensitiveTables = ['profiles', 'user_sessions']
-    
-    // Si excludeSensitive est false, on inclut TOUTES les tables
     if (!this.options.excludeSensitive) {
-      // Ajouter les tables sensibles à la liste
       tablesToClone.push('profiles', 'user_sessions', 'notifications', 'messages')
     }
 
-    // Traitement spécial pour auth.users (toujours inclus mais avec mots de passe anonymisés)
-    await this.cloneAuthUsers()
-
     let totalRecords = 0
-    const results: any = {}
+    const results: Record<string, TableResult> = {}
 
     for (const table of tablesToClone) {
       try {
         console.log(`\n📋 Clonage de la table: ${table}`)
-        console.log('-' .repeat(40))
+        console.log('-'.repeat(40))
 
-        // Récupérer les données source
-        const { data: sourceData, error: sourceError } = await this.sourceClient
-          .from(table)
-          .select('*')
-
-        if (sourceError) {
-          console.log(`⚠️ Erreur lecture ${table}:`, sourceError.message)
-          results[table] = { status: 'error', error: sourceError.message }
+        // Skip tables missing on target to avoid immediate failures (e.g., user_sessions)
+        const targetHas = await this.tableExists(this.targetClient, table)
+        if (!targetHas) {
+          console.log(`ℹ️ Table absente dans la cible, ignorée: ${table}`)
+          results[table] = { status: 'empty', records: 0 }
           continue
         }
 
-        if (!sourceData || sourceData.length === 0) {
+        const sourceHas = await this.tableExists(this.sourceClient, table)
+        if (!sourceHas) {
+          console.log(`ℹ️ Table absente dans la source, ignorée: ${table}`)
+          results[table] = { status: 'empty', records: 0 }
+          continue
+        }
+
+        const sourceData = await this.fetchTablePaged(this.sourceClient, table, pageSize)
+
+        if (!sourceData.length) {
           console.log(`ℹ️ Table ${table} vide dans la source`)
           results[table] = { status: 'empty', records: 0 }
           continue
         }
 
-        console.log(`📊 ${sourceData.length} enregistrements trouvés`)
+        console.log(`📊 ${sourceData.length} enregistrements trouvés (pagination: ${pageSize})`)
 
         if (this.options.dryRun) {
           console.log(`🧪 [TEST] Aurait cloné ${sourceData.length} enregistrements`)
@@ -283,86 +238,129 @@ class DataCloner {
           continue
         }
 
-        // Vider la table cible
-        const { error: deleteError } = await this.targetClient
-          .from(table)
-          .delete()
-          .neq('id', '00000000-0000-0000-0000-000000000000') // Supprimer tout
-
-        if (deleteError && !deleteError.message.includes('No rows found')) {
-          console.log(`⚠️ Avertissement lors du nettoyage de ${table}:`, deleteError.message)
+        // Column intersection shaping to handle schema drift
+        const targetCols = await this.getTableColumns(this.targetClient, table)
+        let shaped = sourceData
+        if (targetCols.size > 0) {
+          shaped = sourceData.map((row) => {
+            const out: any = {}
+            for (const k of Object.keys(row)) {
+              if (targetCols.has(k)) out[k] = (row as any)[k]
+            }
+            return out
+          })
         }
 
-        // Traitement spécial pour les données sensibles
-        let processedData = sourceData
-        
-        if (table === 'profiles') {
-          processedData = this.anonymizeProfiles(sourceData)
-        } else if (table === 'user_sessions') {
-          processedData = this.anonymizeUserSessions(sourceData)
-        } else if (table === 'notifications') {
-          processedData = this.anonymizeNotifications(sourceData)
-        } else if (table === 'messages') {
-          processedData = this.anonymizeMessages(sourceData)
+        // Sensitive processing after shaping (only columns that exist)
+        let processed = this.processSensitive(table, shaped)
+
+        // Special-case strategies:
+        // - settings: often singleton; avoid delete to prevent PK conflicts, use upsert when possible
+        // - profiles: avoid delete due to inbound FKs; prefer upsert
+        const useUpsert = (table === 'profiles' || table === 'settings')
+
+        if (!useUpsert) {
+          await this.truncateTargetTable(table)
         }
 
-        // Insérer les données par lots pour éviter les timeouts
-        const batchSize = 100
+        // Batch insert/upsert
+        const batchSize = 500
         let insertedCount = 0
+        for (let i = 0; i < processed.length; i += batchSize) {
+          const batch = processed.slice(i, i + batchSize)
 
-        for (let i = 0; i < processedData.length; i += batchSize) {
-          const batch = processedData.slice(i, i + batchSize)
-          
-          const { error: insertError } = await this.targetClient
-            .from(table)
-            .insert(batch)
-
-          if (insertError) {
-            console.log(`❌ Erreur insertion lot ${Math.floor(i/batchSize) + 1} pour ${table}:`, insertError.message)
-            // Continuer avec le lot suivant
+          if (useUpsert) {
+            // Try to infer conflict target: prefer 'id' if present, else first key
+            const sample = batch[0] || {}
+            const conflictKey = 'id' in sample ? 'id' : Object.keys(sample)[0]
+            const q = (this.targetClient.from(table) as any).upsert
+              ? (this.targetClient.from(table) as any).upsert(batch, { onConflict: conflictKey, ignoreDuplicates: false })
+              : this.targetClient.from(table).insert(batch) // fallback if upsert unsupported
+            const { error } = await q
+            if (error) {
+              console.log(`❌ Erreur upsert lot ${Math.floor(i / batchSize) + 1} (${table}): ${error.message}`)
+            } else {
+              insertedCount += batch.length
+              process.stdout.write(`\r📥 Upsert: ${insertedCount}/${processed.length}`)
+            }
           } else {
-            insertedCount += batch.length
-            process.stdout.write(`\r📥 Inséré: ${insertedCount}/${processedData.length}`)
+            const { error } = await this.targetClient.from(table).insert(batch)
+            if (error) {
+              console.log(`❌ Erreur insertion lot ${Math.floor(i / batchSize) + 1} (${table}): ${error.message}`)
+            } else {
+              insertedCount += batch.length
+              process.stdout.write(`\r📥 Inséré: ${insertedCount}/${processed.length}`)
+            }
           }
         }
-
         console.log(`\n✅ Table ${table}: ${insertedCount} enregistrements clonés`)
         results[table] = { status: 'success', records: insertedCount }
         totalRecords += insertedCount
-
-      } catch (error) {
-        console.log(`💥 Erreur inattendue pour ${table}:`, error)
-        results[table] = { status: 'error', error: error.message }
+      } catch (e: any) {
+        console.log(`💥 Erreur inattendue pour ${table}:`, e?.message || e)
+        results[table] = { status: 'error', error: e?.message || String(e) }
       }
     }
 
-    // Résumé final
+    // Résumé
     console.log('\n📊 RÉSUMÉ DU CLONAGE')
-    console.log('=' .repeat(50))
+    console.log('='.repeat(50))
     console.log(`📈 Total des enregistrements: ${totalRecords}`)
-    console.log(`✅ Tables réussies: ${Object.values(results).filter((r: any) => r.status === 'success').length}`)
-    console.log(`❌ Tables en erreur: ${Object.values(results).filter((r: any) => r.status === 'error').length}`)
-    console.log(`ℹ️ Tables vides: ${Object.values(results).filter((r: any) => r.status === 'empty').length}`)
+    const succ = Object.values(results).filter(r => r.status === 'success').length
+    const err = Object.values(results).filter(r => r.status === 'error').length
+    const empty = Object.values(results).filter(r => r.status === 'empty').length
+    console.log(`✅ Tables réussies: ${succ}`)
+    console.log(`❌ Tables en erreur: ${err}`)
+    console.log(`ℹ️ Tables vides: ${empty}`)
 
-    // Détail par table
     console.log('\n📋 Détail par table:')
-    Object.entries(results).forEach(([table, result]: [string, any]) => {
-      const icon = result.status === 'success' ? '✅' : 
-                   result.status === 'error' ? '❌' : 
-                   result.status === 'empty' ? 'ℹ️' : '🧪'
-      console.log(`${icon} ${table}: ${result.records || 0} enregistrements (${result.status})`)
-    })
+    for (const [table, r] of Object.entries(results)) {
+      const icon = r.status === 'success' ? '✅' : r.status === 'error' ? '❌' : r.status === 'empty' ? 'ℹ️' : '🧪'
+      console.log(`${icon} ${table}: ${r.records || 0} enregistrements (${r.status}${r.error ? ` - ${r.error}` : ''})`)
+    }
 
     console.log(`\n🎉 Clonage terminé: ${this.options.source.toUpperCase()} → ${this.options.target.toUpperCase()}`)
-    
     if (this.options.target !== 'prod') {
-      console.log('💡 Vous pouvez maintenant tester avec: npm run env:switch:' + this.options.target)
-      console.log('🔍 Vérifiez les données avec: npm run verify-env:' + this.options.target)
-      
-      const password = this.options.target === 'test' ? 'test123' : 'dev123'
-      console.log(`🔐 Mot de passe universel pour ${this.options.target.toUpperCase()}: ${password}`)
+      console.log('💡 Testez avec: npm run env:switch:' + this.options.target)
+      console.log('🔍 Vérifiez les données avec vos scripts de vérification')
     }
   }
-}
 
-export { DataCloner }
+  // Vérification simple: compare les counts par table côté source/target
+  async verifyClone(tables?: string[]) {
+    // Simple count comparison using pagination for accuracy
+    this.initializeClients()
+    const list = tables && tables.length ? tables : [
+      'currencies','categories','zone_areas','internet_connection_types','payment_methods',
+      'loft_owners','lofts','teams','team_members','tasks','transactions',
+      'transaction_category_references','settings','profiles','notifications','messages'
+    ]
+    console.log('\n🔎 Vérification post-clonage (counts):')
+    const page = 1000
+    for (const t of list) {
+      const srcExists = await this.tableExists(this.sourceClient, t)
+      const tgtExists = await this.tableExists(this.targetClient, t)
+      if (!srcExists || !tgtExists) {
+        console.log(`- ${t}: ignorée (existence source=${srcExists}, cible=${tgtExists})`)
+        continue
+      }
+      const countWith = async (client: SupabaseClient) => {
+        let total = 0, offset = 0
+        for (;;) {
+          const { data, error } = await client.from(t).select('*').range(offset, offset + page - 1)
+          if (error) break
+          if (!data || data.length === 0) break
+          total += data.length
+          if (data.length < page) break
+          offset += page
+        }
+        return total
+      }
+      const sCount = await countWith(this.sourceClient)
+      const tCount = await countWith(this.targetClient)
+      const match = sCount === tCount ? '✅' : '⚠️'
+      console.log(`${match} ${t}: source=${sCount}, target=${tCount}`)
+    }
+    console.log('✔️ Vérification simple terminée.')
+  }
+}
